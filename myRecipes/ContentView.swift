@@ -11,7 +11,7 @@ struct ContentView: View {
     
     let recipeDataGetter: RecipeDataGetter = RecipeDataGetter()
     @State private var recipes: [Recipe] = [Recipe]()
-    @State private var curRecipe: Recipe = Recipe(id: -1, name: "", imageURL: "")
+    @State private var curRecipe: DetailedRecipe = DetailedRecipe(id: -1, name: "", imageURL: "", instructions: "", ingredients: [])
     
     var body: some View {
         NavigationView {
@@ -21,16 +21,17 @@ struct ContentView: View {
                         Text(r.name)
                     }.simultaneousGesture(TapGesture().onEnded {
                         Task {
-                            let updatedRecipe = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)
-                            curRecipe = Recipe(id: -1, name: updatedRecipe[0].strMeal, imageURL: "")
+                            let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
+                            let newId = Int(fetch.idMeal) ?? -1
+                            curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: [])
                         }
                     })
-                    .simultaneousGesture(LongPressGesture().onEnded {_ in
-                        curRecipe = r
-                    })
+//                    .simultaneousGesture(LongPressGesture().onEnded {_ in
+//                        curRecipe = r
+//                    })
                 }
             }
-            .padding()
+            .frame(maxWidth: .infinity)
         }.task {
             await recipeDataGetter.decodeRecipes()
             self.recipes = await recipeDataGetter.generateRecipes()
@@ -42,10 +43,4 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
-
-struct Recipe: Decodable, Identifiable {
-    let id: Int
-    let name: String
-    let imageURL: String
 }

@@ -94,6 +94,7 @@ struct DetailedMealsData: Decodable {
         
     let idMeal: String
     let strMeal: String
+    let strMealThumb: String
     let strInstructions: String
     let strIngredient1: String?
     let strIngredient2: String?

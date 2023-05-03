@@ -10,9 +10,11 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @Binding var recipe: Recipe
+    @Binding var recipe: DetailedRecipe
     
     var body: some View {
         Text(recipe.name)
+        Text(recipe.instructions)
+        Text(recipe.imageURL)
     }
 }
