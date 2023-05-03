@@ -104,9 +104,9 @@
 				49FA53912A02161B0082CBB9 /* ContentView.swift */,
 				49FA53B92A0216EC0082CBB9 /* DetailView.swift */,
 				49FA53BB2A021B590082CBB9 /* DataFetch.swift */,
+				49FA53BD2A0306220082CBB9 /* Recipe.swift */,
 				49FA53932A02161D0082CBB9 /* Assets.xcassets */,
 				49FA53952A02161D0082CBB9 /* Preview Content */,
-				49FA53BD2A0306220082CBB9 /* Recipe.swift */,
 			);
 			path = myRecipes;
 			sourceTree = "<group>";

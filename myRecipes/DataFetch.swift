@@ -61,8 +61,7 @@ class RecipeDataGetter {
             print("Error fetching data from " + API_URL)
         }
         return ret
-    }
-    
+    }    
     
     init() {
         self.recipeData = []
@@ -116,5 +115,34 @@ struct DetailedMealsData: Decodable {
     let strIngredient18: String?
     let strIngredient19: String?
     let strIngredient20: String?
+    
+    func getIngredients() -> [String] {
+        var ret: Set = Set<String>()
+        
+        ret.insert(strIngredient1 ?? "")
+        ret.insert(strIngredient2 ?? "")
+        ret.insert(strIngredient3 ?? "")
+        ret.insert(strIngredient4 ?? "")
+        ret.insert(strIngredient5 ?? "")
+        ret.insert(strIngredient6 ?? "")
+        ret.insert(strIngredient7 ?? "")
+        ret.insert(strIngredient8 ?? "")
+        ret.insert(strIngredient9 ?? "")
+        ret.insert(strIngredient10 ?? "")
+        ret.insert(strIngredient11 ?? "")
+        ret.insert(strIngredient12 ?? "")
+        ret.insert(strIngredient13 ?? "")
+        ret.insert(strIngredient14 ?? "")
+        ret.insert(strIngredient15 ?? "")
+        ret.insert(strIngredient16 ?? "")
+        ret.insert(strIngredient17 ?? "")
+        ret.insert(strIngredient18 ?? "")
+        ret.insert(strIngredient19 ?? "")
+        ret.insert(strIngredient20 ?? "")
+        
+        ret.remove("")
+        
+        return Array(ret)
+    }
     
 }

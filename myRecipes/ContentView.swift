@@ -15,27 +15,49 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                ForEach(self.recipes) { r in
-                    NavigationLink(destination: DetailView(recipe: $curRecipe)) {
-                        Text(r.name)
-                    }.simultaneousGesture(TapGesture().onEnded {
-                        Task {
-                            let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
-                            let newId = Int(fetch.idMeal) ?? -1
-                            curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: [])
+            
+            VStack {
+                
+                Text("Recipes")
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 20)
+                    .font(.largeTitle)
+                    .background(Color.blue)
+                    .foregroundColor(Color.white)
+                    
+                
+                ScrollView {
+                    
+                    ForEach(self.recipes) { r in
+                        NavigationLink(destination: DetailView(recipe: $curRecipe)) {
+                            RecipeContainer(title: r.name)
                         }
-                    })
-//                    .simultaneousGesture(LongPressGesture().onEnded {_ in
-//                        curRecipe = r
-//                    })
+                        .simultaneousGesture(TapGesture().onEnded {
+                            
+                            Task {
+                                let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
+                                let ingredients = fetch.getIngredients()
+                                let newId = Int(fetch.idMeal) ?? -1
+                                curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: ingredients)
+                            }
+                            
+                        })
+                        .simultaneousGesture(LongPressGesture().onEnded {_ in
+                            Task {
+                                let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
+                                let newId = Int(fetch.idMeal) ?? -1
+                                curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: [])
+                            }
+                        })
+                    }
+                    
                 }
+                .frame(maxWidth: .infinity)
+                .scrollIndicators(.hidden)
+            }.task {
+                await recipeDataGetter.decodeRecipes()
+                self.recipes = await recipeDataGetter.generateRecipes()
             }
-            .frame(maxWidth: .infinity)
-        }.task {
-            await recipeDataGetter.decodeRecipes()
-            self.recipes = await recipeDataGetter.generateRecipes()
-        }
+        }.tint(Color.white)
     }
 }
 
