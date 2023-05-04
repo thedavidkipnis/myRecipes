@@ -25,12 +25,13 @@ struct ContentView: View {
     // Current recipe that is being used to update detailed view
     @State private var curRecipe: DetailedRecipe
     
+    @State private var loaded: Bool = false
+    
     // Main Screen
     var body: some View {
         NavigationView {
             
             VStack(spacing: 0) {
-                
                 // Page Title
                 HStack {
                     Text("Recipes")
@@ -39,6 +40,10 @@ struct ContentView: View {
                         .foregroundColor(Color.white)
                         .padding([.bottom], UIScreen.main.bounds.height / 40)
                 }.background(Color.blue)
+                
+                if !loaded {
+                    Text("Loading...")
+                }
                 
                 // Display of all recipes
                 ScrollView {
@@ -77,6 +82,7 @@ struct ContentView: View {
             }.task {
                 await recipeDataGetter.decodeRecipes()
                 self.recipes = await recipeDataGetter.generateRecipes()
+                self.loaded.toggle()
             }
         }.tint(Color.white)
     }
