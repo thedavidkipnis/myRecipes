@@ -14,9 +14,9 @@ Project requirements:
 
 An iOS application developed in Xcode using SwiftUI. Fetches data using Swift's URLSession class from TheMealDB's API. Current functionality includes fetching from the API's Dessert category and looking up individual recipe details by recipe ID. 
 
-[img1](https://github.com/thedavidkipnis/myRecipes/blob/main/Documentation.docc/Resources/myRecipes_Detailed_Page_1.png)
+<img src="Resources/myRecipes_Main_Page_1.png" width="250" height="520"> <img src="Resources/myRecipes_Detailed_Page_1.png" width="250" height="520">
 
-Sample app snapshots are included [here](https://github.com/thedavidkipnis/myRecipes/tree/main/Documentation.docc/Resources).
+All sample app snapshots are included [here](https://github.com/thedavidkipnis/myRecipes/tree/main/Documentation.docc/Resources).
 
 ### Issue Tracking:
 
