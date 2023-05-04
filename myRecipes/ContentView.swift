@@ -82,7 +82,7 @@ struct ContentView: View {
             }.task {
                 await recipeDataGetter.decodeRecipes()
                 self.recipes = await recipeDataGetter.generateRecipes()
-                self.loaded.toggle()
+                self.loaded = true
             }
         }.tint(Color.white)
     }

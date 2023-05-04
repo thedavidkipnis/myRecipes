@@ -14,6 +14,8 @@ Project requirements:
 
 An iOS application developed in Xcode using SwiftUI. Fetches data using Swift's URLSession class from TheMealDB's API. Current functionality includes fetching from the API's Dessert category and looking up individual recipe details by recipe ID. 
 
+Sample app snapshots are included [here](https://github.com/thedavidkipnis/myRecipes/tree/main/Documentation.docc/Resources).
+
 ### Issue Tracking:
 
 https://github.com/thedavidkipnis/myRecipes/issues
@@ -56,6 +58,7 @@ Note: by default, Xcode launches projects in its simulator. If you want to test 
 ### Future Improvements:
 
 - Adding images to icons on the main page and at the top of the detailed pages for a better user experience.
+- Add a search bar for looking up dessert by name to filter through large list of recipes.
 - Add a proper loading screen to main page while recipes are being fetched and processed.
 - Fixing instruction displays so that they are easier to read by separating paragraphs. 
 - All functionality fixes that are included on the repository's [issue tracker](https://github.com/thedavidkipnis/myRecipes/issues).
