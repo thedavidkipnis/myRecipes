@@ -16,6 +16,7 @@
 		49FA53AD2A02161D0082CBB9 /* myRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53AC2A02161D0082CBB9 /* myRecipesUITestsLaunchTests.swift */; };
 		49FA53BC2A021B590082CBB9 /* DataFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53BB2A021B590082CBB9 /* DataFetch.swift */; };
 		49FA53BE2A0306220082CBB9 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53BD2A0306220082CBB9 /* Recipe.swift */; };
+		49FA53C22A044E390082CBB9 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53C12A044E390082CBB9 /* Documentation.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		49FA53AC2A02161D0082CBB9 /* myRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49FA53BB2A021B590082CBB9 /* DataFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetch.swift; sourceTree = "<group>"; };
 		49FA53BD2A0306220082CBB9 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		49FA53C12A044E390082CBB9 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		49FA53832A02161B0082CBB9 = {
 			isa = PBXGroup;
 			children = (
+				49FA53C12A044E390082CBB9 /* Documentation.docc */,
 				49FA538E2A02161B0082CBB9 /* myRecipes */,
 				49FA539F2A02161D0082CBB9 /* myRecipesTests */,
 				49FA53A92A02161D0082CBB9 /* myRecipesUITests */,
@@ -266,6 +269,7 @@
 				49FA53922A02161B0082CBB9 /* ContentView.swift in Sources */,
 				49FA53BC2A021B590082CBB9 /* DataFetch.swift in Sources */,
 				49FA53902A02161B0082CBB9 /* myRecipesApp.swift in Sources */,
+				49FA53C22A044E390082CBB9 /* Documentation.docc in Sources */,
 				49FA53BE2A0306220082CBB9 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
