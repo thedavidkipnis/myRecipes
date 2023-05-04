@@ -10,11 +10,11 @@ Project requirements:
 - Xcode 14.3
 - TheMealDB API (https://www.themealdb.com/api.php)
 
-Summary: 
+###Summary: 
 
 An iOS application developed in Xcode using SwiftUI. Fetches data using Swift's URLSession class from TheMealDB's API. Current functionality includes fetching from the API's Dessert category and looking up individual recipe details by recipe ID. 
 
-Issue Tracking:
+###Issue Tracking:
 
 https://github.com/thedavidkipnis/myRecipes/issues
 
@@ -47,15 +47,15 @@ Note: by default, Xcode launches projects in its simulator. If you want to test 
 
 ## Project Specifics
 
-Structure:
+###Structure:
 
 - ContentView.swift: Main entry point for app. Includes all recipe icons fetched from API. Communicates with DetailedView. Has a cache for stashing loaded recipes for quicker lookup to avoid too many calls to the API.
 - DataFetch.swift: Contains all functionality for communicating with API and processing received data. Sends processed data to ContentView.
 - Recipe.swift: contains all view structs for how recipes get displayed on app's pages. 
 
-Future Improvements:
+###Future Improvements:
 
 - Adding images to icons on the main page and at the top of the detailed pages for a better user experience.
 - Add a proper loading screen to main page while recipes are being fetched and processed.
 - Fixing instruction displays so that they are easier to read by separating paragraphs. 
-- All functionality fixes that are included on the repository's issue tracker.
+- All functionality fixes that are included on the repository's [issue tracker](https://github.com/thedavidkipnis/myRecipes/issues).
