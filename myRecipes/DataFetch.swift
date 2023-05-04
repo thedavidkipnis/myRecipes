@@ -168,19 +168,19 @@ struct DetailedMealsData: Decodable {
         ret.append("+++")
         ret.append(strMeasure10 ?? "")
                 
-        let t = ret.joined(separator: "")
-        let c = t.split(separator: "~")
+        let ingString = ret.joined(separator: "")
+        let separateIng = ingString.split(separator: "~")
         
         var true_ret = [String]()
         
-        for i in c {
+        for i in separateIng {
             let new_string_parts = i.split(separator: "+++")
             var new_string = ""
-            for x in new_string_parts {
+            for part in new_string_parts {
                 if new_string.count > 1 {
-                    new_string += " " + x
+                    new_string += " " + part
                 } else {
-                    new_string += x
+                    new_string += part
                 }
             }
             true_ret.append(new_string)
