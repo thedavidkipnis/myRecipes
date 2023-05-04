@@ -16,30 +16,42 @@ struct DetailView: View {
     let height: CGFloat = UIScreen.main.bounds.height
     
     var body: some View {
-        VStack {
+        
+        if recipe.id == -1 {
+            Text("Loading")
+        } else {
             
-            Text(recipe.name)
-                .frame(width: width, height: height / 20)
-                .font(.title)
-                .background(Color.blue)
-                .foregroundColor(Color.white)
-            
-            ScrollView {
+            VStack(spacing: 0) {
                 
-                SectionTextBox(width: width, height: height / 20, text: "Ingredients")
+                HStack {
+                    Text(recipe.name)
+                        .frame(width: width, height: height / 20)
+                        .font(.title)
+                        .foregroundColor(Color.white)
+                        .padding([.bottom], UIScreen.main.bounds.height / 40)
+                        .underline()
+                }.background(Color.blue)
+
                 
-                ForEach(recipe.ingredients, id: \.self) { ing in
-                    Text(ing)
+                ScrollView {
+                    
+                    SectionTextBox(width: width, height: height / 20, text: "Ingredients")
+                    
+                    ForEach(recipe.ingredients, id: \.self) { ing in
+                        if ing.count > 3 {
+                            Text(ing)
+                        }
+                    }
+                    
+                    SectionTextBox(width: width, height: height / 20, text: "Instructions")
+                    
+                    Text(recipe.instructions)
+                        .lineSpacing(10)
+                        .padding([.leading, .trailing], width / 20)
+                    
                 }
-                
-                SectionTextBox(width: width, height: height / 20, text: "Instructions")
-                
-                Text(recipe.instructions)
-                    .lineSpacing(10)
-                    .padding([.leading, .trailing], width / 20)
-                
-            }
-        }.frame(maxWidth: .infinity, maxHeight: height, alignment: .top)
+            }.frame(maxWidth: .infinity, alignment: .top)
+        }
     }
 }
 

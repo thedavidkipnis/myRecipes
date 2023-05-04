@@ -9,55 +9,71 @@ import SwiftUI
 
 struct ContentView: View {
     
+    //class that fetches all the data from API
     let recipeDataGetter: RecipeDataGetter = RecipeDataGetter()
-    @State private var recipes: [Recipe] = [Recipe]()
-    @State private var curRecipe: DetailedRecipe = DetailedRecipe(id: -1, name: "", imageURL: "", instructions: "", ingredients: [])
     
+    // List of all recipes
+    @State private var recipes: [Recipe] = [Recipe]()
+    
+    @State private var RecipeCache: [Int:DetailedRecipe] = [:]
+    
+    private let dummyRecipe: DetailedRecipe = DetailedRecipe(id: -1, name: "", imageURL: "", instructions: "", ingredients: [])
+    
+    // Current recipe that is being used to update detailed view
+    @State private var curRecipe: DetailedRecipe
+    
+    // Main Screen
     var body: some View {
         NavigationView {
             
-            VStack {
+            VStack(spacing: 0) {
                 
-                Text("Recipes")
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 20)
-                    .font(.largeTitle)
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    
+                // Page Title
+                HStack {
+                    Text("Recipes")
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 20)
+                        .font(.largeTitle)
+                        .foregroundColor(Color.white)
+                        .padding([.bottom], UIScreen.main.bounds.height / 40)
+                }.background(Color.blue)
                 
+                // Display of all recipes
                 ScrollView {
-                    
                     ForEach(self.recipes) { r in
                         NavigationLink(destination: DetailView(recipe: $curRecipe)) {
                             RecipeContainer(title: r.name)
                         }
-                        .simultaneousGesture(TapGesture().onEnded {
-                            
-                            Task {
-                                let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
-                                let ingredients = fetch.getIngredients()
-                                let newId = Int(fetch.idMeal) ?? -1
-                                curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: ingredients)
+                        .simultaneousGesture(TapGesture().onEnded { // method that updates the DetailedView
+                            if RecipeCache[r.id] == nil {
+                                Task {
+                                    let fetchData = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)
+                                    let fetch = fetchData[0]
+                                    let ingredients = fetch.getIngredients()
+                                    let newId = Int(fetch.idMeal) ?? -1
+                                    curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: ingredients)
+                                    RecipeCache[r.id] = curRecipe
+                                }
+                            } else {
+                                curRecipe = RecipeCache[r.id] ?? dummyRecipe
                             }
                             
-                        })
-                        .simultaneousGesture(LongPressGesture().onEnded {_ in
-                            Task {
-                                let fetch = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)[0]
-                                let newId = Int(fetch.idMeal) ?? -1
-                                curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: [])
-                            }
                         })
                     }
-                    
                 }
                 .frame(maxWidth: .infinity)
                 .scrollIndicators(.hidden)
+                .onAppear {
+                    self.curRecipe = dummyRecipe
+                }
             }.task {
                 await recipeDataGetter.decodeRecipes()
                 self.recipes = await recipeDataGetter.generateRecipes()
             }
         }.tint(Color.white)
+    }
+    
+    init() {
+        self.curRecipe = dummyRecipe
     }
 }
 

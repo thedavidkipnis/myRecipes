@@ -41,9 +41,7 @@ class RecipeDataGetter {
     
     
     func decodeDetailedRecipe(mealId: Int) async -> [DetailedMealsData] {
-        
         var ret: [DetailedMealsData] = []
-        
         guard let url = URL(string: API_DETAIL_URL + String(mealId)) else {
             print("Invalid URL")
             return ret
@@ -57,8 +55,16 @@ class RecipeDataGetter {
                 ret.append(decodedResponse.meals[0])
                 
             }
+        } catch DecodingError.dataCorrupted(let context) {
+            print(context.debugDescription)
+        } catch DecodingError.keyNotFound(let key, let context) {
+            print("\(key.stringValue) was not found, \(context.debugDescription)")
+        } catch DecodingError.typeMismatch(let type, let context) {
+            print("\(type) was expected, \(context.debugDescription)")
+        } catch DecodingError.valueNotFound(let type, let context) {
+            print("no value was found for \(type), \(context.debugDescription)")
         } catch {
-            print("Error fetching data from " + API_URL)
+            print("I know not this error")
         }
         return ret
     }    
@@ -95,6 +101,7 @@ struct DetailedMealsData: Decodable {
     let strMeal: String
     let strMealThumb: String
     let strInstructions: String
+    
     let strIngredient1: String?
     let strIngredient2: String?
     let strIngredient3: String?
@@ -105,44 +112,81 @@ struct DetailedMealsData: Decodable {
     let strIngredient8: String?
     let strIngredient9: String?
     let strIngredient10: String?
-    let strIngredient11: String?
-    let strIngredient12: String?
-    let strIngredient13: String?
-    let strIngredient14: String?
-    let strIngredient15: String?
-    let strIngredient16: String?
-    let strIngredient17: String?
-    let strIngredient18: String?
-    let strIngredient19: String?
-    let strIngredient20: String?
+    
+    let strMeasure1: String?
+    let strMeasure2: String?
+    let strMeasure3: String?
+    let strMeasure4: String?
+    let strMeasure5: String?
+    let strMeasure6: String?
+    let strMeasure7: String?
+    let strMeasure8: String?
+    let strMeasure9: String?
+    let strMeasure10: String?
     
     func getIngredients() -> [String] {
-        var ret: Set = Set<String>()
         
-        ret.insert(strIngredient1 ?? "")
-        ret.insert(strIngredient2 ?? "")
-        ret.insert(strIngredient3 ?? "")
-        ret.insert(strIngredient4 ?? "")
-        ret.insert(strIngredient5 ?? "")
-        ret.insert(strIngredient6 ?? "")
-        ret.insert(strIngredient7 ?? "")
-        ret.insert(strIngredient8 ?? "")
-        ret.insert(strIngredient9 ?? "")
-        ret.insert(strIngredient10 ?? "")
-        ret.insert(strIngredient11 ?? "")
-        ret.insert(strIngredient12 ?? "")
-        ret.insert(strIngredient13 ?? "")
-        ret.insert(strIngredient14 ?? "")
-        ret.insert(strIngredient15 ?? "")
-        ret.insert(strIngredient16 ?? "")
-        ret.insert(strIngredient17 ?? "")
-        ret.insert(strIngredient18 ?? "")
-        ret.insert(strIngredient19 ?? "")
-        ret.insert(strIngredient20 ?? "")
+        var ret: [String] = [String]()
         
-        ret.remove("")
+        ret.append(strIngredient1 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure1 ?? "")
+        ret.append("~")
+        ret.append(strIngredient2 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure2 ?? "")
+        ret.append("~")
+        ret.append(strIngredient3 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure3 ?? "")
+        ret.append("~")
+        ret.append(strIngredient4 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure4 ?? "")
+        ret.append("~")
+        ret.append(strIngredient5 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure5 ?? "")
+        ret.append("~")
+        ret.append(strIngredient6 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure6 ?? "")
+        ret.append("~")
+        ret.append(strIngredient7 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure7 ?? "")
+        ret.append("~")
+        ret.append(strIngredient8 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure8 ?? "")
+        ret.append("~")
+        ret.append(strIngredient9 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure9 ?? "")
+        ret.append("~")
+        ret.append(strIngredient10 ?? "")
+        ret.append("+++")
+        ret.append(strMeasure10 ?? "")
+                
+        let t = ret.joined(separator: "")
+        let c = t.split(separator: "~")
         
-        return Array(ret)
+        var true_ret = [String]()
+        
+        for i in c {
+            let new_string_parts = i.split(separator: "+++")
+            var new_string = ""
+            for x in new_string_parts {
+                if new_string.count > 1 {
+                    new_string += " " + x
+                } else {
+                    new_string += x
+                }
+            }
+            true_ret.append(new_string)
+        }
+
+        return true_ret
     }
     
 }
