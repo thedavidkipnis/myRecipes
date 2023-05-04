@@ -8,7 +8,7 @@ Project requirements:
 
 - iOS 16.4+
 - Xcode 14.3
-- TheMealDB API
+- TheMealDB API (https://www.themealdb.com/api.php)
 
 Summary: 
 
