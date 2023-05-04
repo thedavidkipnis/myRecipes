@@ -15,7 +15,6 @@
 		49FA53BE2A0306220082CBB9 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53BD2A0306220082CBB9 /* Recipe.swift */; };
 		49FA53C22A044E390082CBB9 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53C12A044E390082CBB9 /* Documentation.docc */; };
 		49FA53C42A0460B00082CBB9 /* DataFetchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53C32A0460B00082CBB9 /* DataFetchTest.swift */; };
-		49FA53C62A046FA80082CBB9 /* myRecipesUITests in Resources */ = {isa = PBXBuildFile; fileRef = 49FA53C52A046FA80082CBB9 /* myRecipesUITests */; };
 		49FA53CB2A046FF60082CBB9 /* myRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA53CA2A046FF60082CBB9 /* myRecipesUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		49FA53BD2A0306220082CBB9 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		49FA53C12A044E390082CBB9 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		49FA53C32A0460B00082CBB9 /* DataFetchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetchTest.swift; sourceTree = "<group>"; };
-		49FA53C52A046FA80082CBB9 /* myRecipesUITests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = myRecipesUITests; path = ../../../.Trash/myRecipesUITests; sourceTree = "<group>"; };
 		49FA53CA2A046FF60082CBB9 /* myRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +78,6 @@
 		49FA53832A02161B0082CBB9 = {
 			isa = PBXGroup;
 			children = (
-				49FA53C52A046FA80082CBB9 /* myRecipesUITests */,
 				49FA53C12A044E390082CBB9 /* Documentation.docc */,
 				49FA538E2A02161B0082CBB9 /* myRecipes */,
 				49FA539F2A02161D0082CBB9 /* myRecipesTests */,
@@ -241,7 +238,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49FA53C62A046FA80082CBB9 /* myRecipesUITests in Resources */,
 				49FA53972A02161D0082CBB9 /* Preview Assets.xcassets in Resources */,
 				49FA53942A02161D0082CBB9 /* Assets.xcassets in Resources */,
 			);
