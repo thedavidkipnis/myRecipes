@@ -4,6 +4,7 @@
 //
 //  Created by David Kipnis on 5/2/23.
 //
+//  Main view of the app that includes all individual recipes
 
 import SwiftUI
 
@@ -44,6 +45,8 @@ struct ContentView: View {
                             RecipeContainer(title: r.name)
                         }
                         .simultaneousGesture(TapGesture().onEnded { // method that updates the DetailedView
+                            
+                            // Case where the cache doesn't have the recipe data loaded
                             if RecipeCache[r.id] == nil {
                                 Task {
                                     let fetchData = await recipeDataGetter.decodeDetailedRecipe(mealId: r.id)
@@ -53,6 +56,7 @@ struct ContentView: View {
                                     curRecipe = DetailedRecipe(id: newId, name: fetch.strMeal, imageURL: fetch.strMealThumb, instructions: fetch.strInstructions, ingredients: ingredients)
                                     RecipeCache[r.id] = curRecipe
                                 }
+                            // Case where recipe data is already in cache
                             } else {
                                 curRecipe = RecipeCache[r.id] ?? dummyRecipe
                             }
@@ -65,6 +69,9 @@ struct ContentView: View {
                 .onAppear {
                     self.curRecipe = dummyRecipe
                 }
+                
+            // The initialization tasks for the recipe data getter
+            // Generates all the recipes with the initial call to API
             }.task {
                 await recipeDataGetter.decodeRecipes()
                 self.recipes = await recipeDataGetter.generateRecipes()

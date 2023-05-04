@@ -4,16 +4,26 @@
 //
 //  Created by David Kipnis on 5/2/23.
 //
+//  Class that communicates with themealdb API and fetches data from its two endpoints:
+//  - Desserts section
+//  - Looking up recipe by ID
 
 import SwiftUI
 
 class RecipeDataGetter {
     
+    // Variables for storing URLS for accessing endpoints
     var API_URL: String = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
     var API_DETAIL_URL: String = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+    
+    // Holds list of Recipe structs fetched from API_URL
     var recipeData: [RecipeData]
+    
+    // Holds list of Detailed Recipes fetched from API_DETAILED_URL
     var detailedRecipeData: [Int:DetailedMealsData]
     
+    // Makes call to API and fetches all data from the Desserts category
+    // Uses RecipeTotalData struct
     func decodeRecipes() async {
         guard let url = URL(string: API_URL) else {
             print("Invalid URL")
@@ -30,6 +40,7 @@ class RecipeDataGetter {
         }
     }
     
+    // Generates a comprehensive list of Recipes from the data gathered by the recipe decoder
     func generateRecipes() async -> [Recipe] {
             var recipes = [Recipe]()
             for r in recipeData {
@@ -40,6 +51,7 @@ class RecipeDataGetter {
         }
     
     
+    // Makes call to API to fetch specific recipe by ID to generate a detailed recipe
     func decodeDetailedRecipe(mealId: Int) async -> [DetailedMealsData] {
         var ret: [DetailedMealsData] = []
         guard let url = URL(string: API_DETAIL_URL + String(mealId)) else {
@@ -55,16 +67,9 @@ class RecipeDataGetter {
                 ret.append(decodedResponse.meals[0])
                 
             }
-        } catch DecodingError.dataCorrupted(let context) {
-            print(context.debugDescription)
-        } catch DecodingError.keyNotFound(let key, let context) {
-            print("\(key.stringValue) was not found, \(context.debugDescription)")
-        } catch DecodingError.typeMismatch(let type, let context) {
-            print("\(type) was expected, \(context.debugDescription)")
-        } catch DecodingError.valueNotFound(let type, let context) {
-            print("no value was found for \(type), \(context.debugDescription)")
         } catch {
-            print("I know not this error")
+            print("Error fetching detailed recipe with id " + String(mealId))
+            return []
         }
         return ret
     }    
@@ -75,12 +80,14 @@ class RecipeDataGetter {
     }
 }
 
+// Used by recipe decoder to fetch data from API
 struct RecipeTotalData: Decodable {
     
     let meals: [RecipeData]
     
 }
 
+// Used by recipe decoder to fetch data from API
 struct RecipeData: Decodable {
     
     let idMeal: String
@@ -89,12 +96,14 @@ struct RecipeData: Decodable {
     
 }
 
+// Used by detailed recipe decoder to fetch data from API
 struct DetailData: Decodable {
     
     let meals: [DetailedMealsData]
     
 }
 
+// Used by detailed recipe decoder to fetch data from API
 struct DetailedMealsData: Decodable {
         
     let idMeal: String
@@ -124,6 +133,7 @@ struct DetailedMealsData: Decodable {
     let strMeasure9: String?
     let strMeasure10: String?
     
+    // Turns list of optionals into actual ingredients
     func getIngredients() -> [String] {
         
         var ret: [String] = [String]()
@@ -178,7 +188,7 @@ struct DetailedMealsData: Decodable {
             var new_string = ""
             for part in new_string_parts {
                 if new_string.count > 1 {
-                    new_string += " " + part
+                    new_string += " - " + part
                 } else {
                     new_string += part
                 }
