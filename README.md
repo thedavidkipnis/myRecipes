@@ -6,7 +6,7 @@ Fetches and displays recipes from TheMealDB's Dessert category, giving users the
 
 ## Installation:
 
-All installation instructions and documentation are included [here](https://github.com/thedavidkipnis/myRecipes/blob/main/Documentation.docc/Documentation.md)
+All installation instructions and documentation are included [here](https://github.com/thedavidkipnis/myRecipes/blob/main/Documentation.docc/Documentation.md).
 
 TODO:
 
