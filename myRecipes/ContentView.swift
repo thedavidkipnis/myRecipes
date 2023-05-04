@@ -16,8 +16,10 @@ struct ContentView: View {
     // List of all recipes
     @State private var recipes: [Recipe] = [Recipe]()
     
+    // Cache for keeping loaded recipe data in app to avoid having to call API too many times
     @State private var RecipeCache: [Int:DetailedRecipe] = [:]
     
+    // Recipe that gets assigned to detail view when app is launched
     private let dummyRecipe: DetailedRecipe = DetailedRecipe(id: -1, name: "", imageURL: "", instructions: "", ingredients: [])
     
     // Current recipe that is being used to update detailed view

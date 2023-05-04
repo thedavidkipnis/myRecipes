@@ -53,7 +53,7 @@ struct DetailView: View {
         
         // Sets loading screen while waiting for information retrieval
         if recipe.id == -1 {
-            Text("Loading")
+            Text("Loading Recipe...")
         } else {
             
             VStack(spacing: 0) {
